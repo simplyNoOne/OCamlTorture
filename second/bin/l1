@@ -1,0 +1,23 @@
+(* ready code snippets to paste into REPL console*)
+
+(*task 1*)
+let rec flatten xss = 
+    match xss with
+    | [] -> []
+    | head::tail -> List.append head (flatten tail)
+;;
+
+
+(* flatten [[1; 2]; [3];[3;4]];; *)
+
+(*task 1*)
+
+(*task 1*)
+
+(*task 1*)
+
+(*task 1*)
+
+(*task 1*)
+
+(*task 1*)

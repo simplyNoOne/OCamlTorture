@@ -1,0 +1,4 @@
+(executable
+ (public_name paradigrimsClass)
+ (name main)
+ (libraries paradigrimsClass))
