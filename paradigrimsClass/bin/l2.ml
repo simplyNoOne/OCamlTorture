@@ -76,6 +76,7 @@ initSegment ([], [1; 2; 3]);;
 initSegment ([1; 2], []);;
 initSegment ([], []);;
 
+(* zad 6 *)
 
 let rec replaceNth = function xs, n, x ->
   match xs, n with
