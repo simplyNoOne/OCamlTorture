@@ -83,3 +83,4 @@ mergesort compare [-2; -13; 8; 10; 1; 0; 0; 0; 0; 0; 0; 0; 0; 0];;
 mergesort compare [-2; -13; 8; 10; 1; 0; 0; 0; 0; 0; 0; 0; 0; 0; 0; -1];;
 
 
+let f1 z y x = x  y  z;;
