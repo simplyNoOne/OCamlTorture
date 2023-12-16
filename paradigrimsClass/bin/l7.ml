@@ -65,6 +65,29 @@ struct
 end
 ;;
 
+let open QueueA in 
+first(enqueue(4, dequeue(enqueue(1, enqueue(3, dequeue(enqueue(1, empty())))))))
+;;
+
+let open QueueA in 
+isEmpty(dequeue(enqueue(1, enqueue(3, dequeue(dequeue(enqueue(1, empty())))))))
+;;
+
+let open QueueA in 
+dequeue(enqueue(1, enqueue(3, dequeue(dequeue(enqueue(1, empty()))))))
+;;
+
+let open QueueB in
+first(enqueue(4, dequeue(enqueue(1, enqueue(3, dequeue(enqueue(1, empty())))))))
+;;
+
+let open QueueB in
+isEmpty(dequeue(enqueue(1, enqueue(3, dequeue(dequeue(enqueue(1, empty())))))))
+;;
+
+let open QueueB in
+enqueue(1, enqueue(3, enqueue(5, dequeue(enqueue(1, empty())))))
+;;
 
 
 
@@ -93,3 +116,61 @@ val isFull: 'a t -> bool
 (* [isFull q] returns [true] if queue [q] is full,
 otherwise returns [false]. *)
 end;;
+
+module QueueMut : QUEUE_MUT =
+struct
+  type 'a t = {mutable a: 'a option array; capacity: int; mutable size: int; mutable f: int; mutable r: int}
+  exception Empty of string
+  exception Full of string
+
+  let empty n = {a = Array.make n None; capacity = n; size = 0;f = 0; r = 0}
+
+  let enqueue(x, q)=
+    if q.size = q.capacity then raise (Full "Queue is full")
+    else
+      q.a.(q.r) <- Some x;
+      q.r <- ((q.r + 1) mod q.capacity);
+      q.size <- (q.size + 1) 
+
+  let dequeue q =
+    if q.size = 0 then ()
+    else
+    q.a.(q.f) <- None;
+    q.f <- ((q.f + 1) mod q.capacity);
+    q.size <- (q.size - 1)
+
+  let first q = 
+    match q.a.(q.f) with
+    | None -> raise (Empty "Queue is empty")
+    | Some x -> x
+
+  let isEmpty q = q.size = 0
+
+  let isFull q = q.capacity = q.size
+      
+end
+;;
+
+let open QueueMut in
+let q = empty 3 in
+enqueue(1, q);
+enqueue(2, q);
+enqueue(3, q);
+dequeue q; 
+enqueue(4, q);
+first q;;
+
+let open QueueMut in
+let q = empty 3 in
+(* isFull q; *)
+dequeue q;
+enqueue(4, q);
+dequeue q;
+dequeue q;
+dequeue q;
+(* isEmpty q; *)
+dequeue q;
+enqueue(4, q);
+first q;;
+
+
