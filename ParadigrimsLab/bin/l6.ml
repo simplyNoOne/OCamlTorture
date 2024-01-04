@@ -1,5 +1,7 @@
 
 let declaracci m n =
+  if m < 1 || n < 1 then []
+  else
   let rec fib a b cnt=
     if cnt = 0 then []
     else a ::(fib b (a + b) (cnt - 1))
@@ -19,8 +21,13 @@ declaracci 3 13;;
 declaracci 4 3;; 
 declaracci 5 6;; 
 
+declaracci (-4) 3;; 
+declaracci 5 (-6);; 
+
 
 let imperiacci m n =
+  if m < 1 || n < 1 then Array.make 0 0
+  else
   let start = 1 + (m - 1) * 2 in
   let id = ref 1 in
   let a = ref 1 and b = ref 1 in
@@ -47,4 +54,8 @@ imperiacci 2 8;;
 imperiacci 3 13;;
 imperiacci 4 3;;
 imperiacci 5 6;;
+
+
+imperiacci (-1) 3;;
+imperiacci 5 (-6);;
 
